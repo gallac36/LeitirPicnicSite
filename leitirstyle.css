@@ -1,0 +1,91 @@
+
+.homeimg {
+    height: 100%;
+    background: url('magnakata.jpg');
+  }
+
+body {
+    background-image: url("bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+#LP_logo{
+   width:100%;
+   margin-bottom: -2em;
+
+  }
+
+h1 {
+  text-decoration: underline;
+}
+
+h4{
+  font-style: italic;
+}
+
+
+h1{
+    font-family: "Times New Roman", Times, serif;
+  }
+
+.navbar{
+     margin: 40px 50px 25px 50px;
+     border-radius: 15px;
+     font-size: 1.5em;
+  }
+
+.nav-item {
+    margin: .5em 1em .5em 1em;
+  }
+
+.navbar-brand {
+    font-size: 1em;
+    font-weight: bold;
+    margin: .5em 1em .5em 1em;
+  }
+
+.container{ 
+    background-color:rgba(255, 255, 255, 0.7);
+    padding: 50px 50px 20px 50px;
+    border-radius: 25px;
+  }
+
+.container-fluid{
+    margin-bottom: 1em;
+    padding:1em;
+   
+    border-width: :1px;
+    background-color:rgba(255, 255, 255);
+    border-radius: 10px;
+  }
+
+#timer {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 2em;
+    text-align: center;
+    height:2em;
+    margin-top: 0px;
+    margin-bottom: .5em;
+    padding-top: -20px;
+}
+#brick_logo{
+    float: right;
+    position: relative;
+    margin-bottom: 25px;
+    width: 20%;
+    visibility: hidden;
+
+}
+.footer{
+    position: relative;
+    background: transparent;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
