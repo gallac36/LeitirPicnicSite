@@ -1,71 +1,616 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>The Leitir Picnic Website</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="leitirstyle.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="timerScript.js"></script> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Leitir Picnic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Knewave&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #db5749; /* red */
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFE66D;
+            --dark-color: #1A535C;
+            --light-color: #F7FFF7;
+            --bg-light: rgba(255, 255, 255, 0.8);
+            --gold-color: #ffce40;
+            --forest-color: #2E8B57;
+
+                        /* New color variables */
+            --blue-color: #5dbfec;
+            --light-orange-color: #feb33b;
+            --dark-orange-color: #e59a52;
+            --light-green-color: #babf57;
+            /*--dark-green-color: #66F29A;*/
+            --dark-green-color: #4d8057;
+
+            
+            /* Background colors with opacity */
+            --bg-light: rgba(255, 255, 255, 0.15);
+            --bg-color1: rgba(254, 179, 59, 0.15); /* Light orange background */
+            --bg-color2: rgba(93, 191, 236, 0.15); /* Blue background */
+            --bg-color3: rgba(186, 191, 87, 0.15); /* Light green background */
+            --bg-color4: rgba(229, 154, 82, 0.15); /* Dark orange background */
+            /*--bg-color5: rgba(71, 120, 83, 0.15); /* Dark green background */
+            --bg-color5: rgba(71, 120, 83, 0.8); /* Dark green background */
+
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            position: relative;
+        }
+        
+        /* Background image with gradient overlay */
+        .festival-bg {
+            background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), 
+                        url('background.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        /* Hero section */ 
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 50px;
+            text-align: center;            
+        }
+        
+        /* Logo styling */
+        .logo-container {
+            margin-bottom: 1.5rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-image {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* For desktop */
+        @media (min-width: 768px) {
+            .logo-container {
+                max-width: 70%;
+            }
+        }
+
+        .date-display {
+            font-weight: 600;
+            color: var(--dark-color);
+            background-color: var(--gold-color);
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 15px;
+            margin-top: 15px;
+            font-size: 1.15rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Navigation */
+        .navbar {
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .navbar-scrolled {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+        }
+        
+        /* Content sections */
+        .content-section {
+            padding: 40px 0;
+            position: relative;
+        }
+        
+        .content-section h2 {
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: var(--dark-color);
+            border-left: 5px solid var(--dark-color);
+            padding-left: 15px;
+        }
+        
+        /* Section styles */
+        .about-section {
+            background-color: var(--bg-color2); /* Blue background */
+        }
+        
+        .event-details {
+            background-color: var(--bg-color5); /* Light orange background */
+        }
+        
+        .travel-section {
+            background-color: var(--bg-color2); /* Light green background */
+        }
+        
+        .accommodation-section {
+            background-color: var(--bg-color2); /* Dark orange background */
+        }
+        
+        
+        .faq-section {
+            background-color: var(--bg-light); /* White background */
+        }
+        
+        /* Cards */
+        .info-card {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .info-card .card-header {
+            background-color: var(--gold-color);
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            font-size: 1.15rem;
+        }
+        
+        /* Buttons */
+        .btn-festival {
+            background-color: var(--dark-green-color);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-festival:hover {
+            background-color: var(--light-orange-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-green-color);
+            color: white;
+            padding: 30px 0;
+        }
+        
+        /* Accordion for FAQ */
+        .accordion-button:not(.collapsed) {
+            background-color: var(--gold-color);
+            color: white;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: var(--accent-color);
+        }
+        
+        /* Map placeholder */
+        .map-container {
+            height: 300px;
+            background-color: #eee;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        /* Floating action button */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--light-orange-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .floating-btn:hover {
+            background-color: var(--dark-orange-color);
+            color: white;
+        }
+
+        .lineup-section {
+            background-color: var(--bg-color5); /* Using your blue background */
+        }
+
+        .lineup-image {
+            max-width: 100%;
+            border-radius: 5px;
+            /*box-shadow: 0 5px 15px rgba(0,0,0,0.2);*/
+        }
+
+
+        .lineup-container {
+            padding: 20px;
+            /* No background color here to keep transparency */
+        }
+
+        
+        
+    </style>
 </head>
 <body>
+    <div class="festival-bg">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">The Leitir Picnic</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#details">Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#travel">Travel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#lineup">Line-Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#bring">Accommodation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#faq">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-<nav class="navbar navbar-expand-sm bg-success navbar-dark justify-content-center">
-  <a class="navbar-brand" href="index.html">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="gettinghere.html">Travel</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="accommodation.html">Accommadation</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="lineup.html">Line-up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.html">Contact</a>
-      </li>    
-    </ul>
-  </div>  
-</nav>
-
-  <img id="LP_logo" src="LPLogo.png"  ></img>
-  
-  <div id="timer" > 
+        <div class="container hero">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="logo-container">
+                        <img src="TLP_Logo.png" alt="The Leitir Picnic" class="img-fluid logo-image">
+                    </div>
+                    <p><h3>Conor and Rachael's wedding celebration</h3></p>
+                    <div class="date-display">2nd August 2025</div>
+                    
+                    
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- About Section -->
+    <section id="about" class="content-section about-section">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="info-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">5 Years Later...</h5>
+                            <p class="card-text">
+                                We got married during COVID with only 20 guests, now 5 years later it's time to
+                                celebrate properly with all our friends and family!
+                            </p>
+                            <p class="card-text">
+                                So we're hosting a festival-style celebration at our farm in Leitir.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card card">
+                        <div class="card-body">
+                            <h5 class="card-title">What to Expect</h5>
+                            <p class="card-text">
+                                We've got a massive tipi marquee with capacity for around 100 people and a caterer will be providing fancy BBQ-style food. 
+                            </p>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Event Details -->
+    <section id="details" class="content-section event-details">
+        <div class="container">
+            <h2>Event Details</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="info-card card">
+                        <div class="card-header">
+                            When & Where
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Date:</strong> 2nd August, 2025</p>
+                            <p><strong>Time:</strong> 2:00 PM - Late</p>
+                            <p><strong>Location:</strong> Corr Point, Lettermacaward, Co. Donegal</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="info-card card">
+                        <div class="card-header">
+                            Schedule
+                        </div>
+                        <div class="card-body">
+                            <p><strong> Comming Soon</strong> And by soon I mean a few days before the date.</p>
+                            <!--<p><strong>3:30 PM</strong> - Short Ceremony & Speeches</p>
+                            <p><strong>4:30 PM</strong> - BBQ Feast Begins</p>
+                            <p><strong>6:00 PM</strong> - Music & Dancing</p>
+                            <p><strong>9:00 PM</strong> - Evening Food</p>
+                            <p><strong>11:00 PM</strong> - Farewell</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Travel Section -->
+    <section id="travel" class="content-section travel-section">
+        <div class="container">
+            <h2>Getting Here</h2>
+            <div class="row">
 
-<div class="container" >
-  <div class="row">
-    
-    <div class="col-sm-8">
-      <h1>The Wedding</h1>
-      <h5>Saturday, September 5, 2020</h5>
-      <img style="width:100%"; src="magnakata.jpg"  ></img> 
-      <p>We're getting married. In a field. In leitir.</p>
-      <p>Now with your expectations hopefully not set to high we plan to at least mildly impress but maybe even completly blow your wellies off. </p>
-      <br>
-      <h2>The Afters</h2>
+                <div class="col-12">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d25988.2052383752!2d-8.359358657434125!3d54.849292331609206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e0!4m0!4m5!1s0x485f0cb681ea4d3d%3A0x54fa066fd9e2f133!2sCounty%20Donegal%2C%20Co.%20Donegal!3m2!1d54.8457326!2d-8.3402536!5e0!3m2!1sen!2sie!4v1583328513822!5m2!1sen!2sie" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="info-card card">
+                        <div class="card-header">
+                            Public Transport
+                        </div>
+                        <div class="card-body">
+                            <h2>Flying</h2>
+                            <a href="https://www.donegalairport.ie"><h5>To Carrickfin Airport</h5></a>  
+                         <p> This could be a good option for some. It's a 45min flight from Dublin, Terminal 2 (the nice one), fast tracked security line and of course one of the most senic airports in the world. On a clear day it really is spectacular. Flights are usualy €30 each way but if it gets very windy they can be cancelled. August should be fine though. </p>  
+                                
+                            <h2>Bus</h2>
+                           
+                    <p>Be warned, it's a long slog. €15 each way</p> 
+                    <p>Bus Éireann Route 30 gets you to Donegal Town</p>
       
-      <img style="width:100%"; src="packies.png"  ></img> 
-      <p>If you're still going or ready for more...</p>
-      <p>All down to Packie's Bar, just a few hundred meters down the road from the wedding venue.</p>
+                     <p>Route 32 gets you to Letterkenny</p>
+                     <p>Add about 30mins to advertised timetable so each route takes approx 4.5 hours. If you get that far we'll collect and drive you the rest of the way.</p>                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 mb-4">
+                    <div class="info-card card">
+                        <div class="card-header">
+                            Directions
+                        </div>
+                        <div class="card-body">
+                            <h2>Driving</h2>
+                            <h5>From Dublin</h5> 
+                            <p>4.5 hours</p>
+                            <p>We all have our own preference but I think the N3 to Cavan then head toward Enniskillen. If you have a satnav or Google Maps then going by Blacklion/Belco takes 20mins off and is very senic too. </p>
+                            <h5>From Galway</h5>
+                            <p>3.5 hours</p>
+                            <p>There's only one road really. N17 -> Sligo -> Ballyshannon -> Donegal Town -> Glenties -> Leitir</p> 
+                        </div>
+                    </div>
+                </div>
+
+
+                
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Lineup Section -->
+<section id="lineup" class="content-section lineup-section">
+    <div class="container">
+        <h2>Line-up</h2>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="lineup-container">
+                    <img src="line-up.png" alt="The Leitir Picnic Music Lineup" class="img-fluid lineup-image">
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</section>
 
-<div class="container footer">
-  <img id="brick_logo" src="redbrick_logo.png"  ></img>
-</div>
+    <!-- Accommodation -->
+    <section id="bring" class="content-section accommodation-section">
+        <div class="container">
+            <h2>Accommodation</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="info-card card">
+                        <div class="card-header">
+                            Camping
+                        </div>
+                        <div class="card-body">
+                            <p>We have a spare house with facilities dedicated to the campersite right beside the venue. Take you pick of garden or field with a view or if you are feeling adventurous then it's a stones throw to the forest. </p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card card">
+                        <div class="card-header">
+                            Hotels and B&Bs
+                        </div>
+                        <div class="card-body">
+                            <p>There are lots of AirBnBs locally but they can be booked up a year in advance, so sorry about the late notice. Bookings do get cancelled so maybe worth checking back ocasionally</p>
+                            <p></p>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+
+     
+
+    <!-- FAQ Section -->
+    <section id="faq" class="content-section faq-section">
+        <div class="container">
+            <h2>FAQ</h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordion" id="faqAccordion">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    What's the dress code?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Festival welly wedding.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    What about Booze?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    BYOB. We're going to set up a bar with a keg or 2 and there will be lots of fridges and ice and spare mixers and stuff but do bring your favourate tipple.
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    What if it rains?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We'll have enough covered space to get everyone inside but it may get muddy between spaces. Be prepared for a bit of mud.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                    Is there parking available?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, probably. We should have enough parking in and around the yard and forest but it depends on how many bring cars. 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5>Contact Us</h5>
+                    <p>If you have any questions, please get in touch:</p>
+                    <p>Email: leitirpicnic@gmail.com</p>
+                    <p>Phone: 086 3921946</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>The Leitir Picnic</h5>
+                    <p>August 02, 2025</p>
+                    <p>Leitir, Co. Donegal</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 The Leitir Picnic. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating action button -->
+    <!--<a href="#rsvp" class="floating-btn">R</a>-->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Make navbar change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
